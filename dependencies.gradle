@@ -1,41 +1,56 @@
 ext {
+    androidXVersion = '1.0.0'
     retrofitVersion = '2.4.0'
     moshiVersion = '1.7.0'
     androidxTestVersion = '1.1.0-alpha4'
     androidxEspressoVersion = '3.1.0-alpha4'
     glideVersion = '4.8.0'
+    junitVersion = '4.12'
+    lifecycleVersion = '2.0.0'
+    pagingLibraryVersion = '2.0.0-beta01'
+    constraintLayoutVersion = '1.1.3'
+    mockitoVersion = '1.10.19'
 
     kotlin_ = [
-            stdlib              :   "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+            stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     ]
 
     archComponents = [
-            liveData            :   "androidx.lifecycle:lifecycle-livedata:2.0.0",
-            extension           :   "androidx.lifecycle:lifecycle-extensions:2.0.0",
-            viewModel           :   "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0",
-            paging              :   "androidx.paging:paging-runtime:2.0.0-beta01"
+            liveData : "androidx.lifecycle:lifecycle-livedata:$lifecycleVersion",
+            extension: "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion",
+            viewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion",
+            paging   : "androidx.paging:paging-runtime:$pagingLibraryVersion"
     ]
 
     androidx = [
-            appCompat           :   "androidx.appcompat:appcompat:1.0.0",
-            recyclerView        :   "androidx.recyclerview:recyclerview:1.0.0",
-            constraintLayout    :   "androidx.constraintlayout:constraintlayout:1.1.3",
-            material            :   "com.google.android.material:material:1.0.0",
+            appCompat       : "androidx.appcompat:appcompat:$androidXVersion",
+            recyclerView    : "androidx.recyclerview:recyclerview:$androidXVersion",
+            constraintLayout: "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            material        : "com.google.android.material:material:$androidXVersion",
     ]
 
     retrofit = [
-            retrofit            :   "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            moshiConverter      :   "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
-            loggingInterceptor  :   "com.squareup.okhttp3:logging-interceptor:3.8.1",
-            implementation      :   "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+            retrofit          : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            moshiConverter    : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
+            loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:3.8.1",
+            implementation    : "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     ]
 
     glide = [
-            glide               :   "com.github.bumptech.glide:glide:$glideVersion",
-            compiler            :   "com.github.bumptech.glide:compiler:$glideVersion"
+            glide   : "com.github.bumptech.glide:glide:$glideVersion",
+            compiler: "com.github.bumptech.glide:compiler:$glideVersion"
     ]
     moshi = [
-            kotlin              :   "com.squareup.moshi:moshi-kotlin:$moshiVersion",
-            codegen             :   "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+            kotlin : "com.squareup.moshi:moshi-kotlin:$moshiVersion",
+            codegen: "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    ]
+    testing = [
+            junit          : "junit:junit:$junitVersion",
+            testRunner     : "androidx.test:runner:$androidxTestVersion",
+            testRules      : "androidx.test:rules:$androidxTestVersion",
+            espressoCore   : "androidx.test.espresso:espresso-core:$androidxEspressoVersion",
+            archCoreTesting: "androidx.arch.core:core-testing:$lifecycleVersion",
+            retrofitMock   : "com.squareup.retrofit2:retrofit-mock:$retrofitVersion",
+            mockito        : "org.mockito:mockito-core:$mockitoVersion"
     ]
 }
