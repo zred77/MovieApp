@@ -21,6 +21,7 @@ fun View.visibleOrGone(visible: Boolean) {
 @BindingAdapter("imageUrl", "placeHolder", "error")
 fun ImageView.loadImageFromUrl(url: String?, placeHolder: Drawable, error: Drawable) {
     if (TextUtils.isEmpty(url)) {
+        setImageDrawable(placeHolder)
         return
     }
 
