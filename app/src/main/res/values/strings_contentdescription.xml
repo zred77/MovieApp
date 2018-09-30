@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cd_poster">Poster</string>
+    <string name="cd_movielist_error">Error downloading movies</string>
+    <string name="cd_backdrop">Backdrop photo</string>
+</resources>

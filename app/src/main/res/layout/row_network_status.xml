@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="status"
+            type="com.veresz.movieapp.api.NetworkStatus" />
+
+        <import type="com.veresz.movieapp.api.NetworkStatus" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_default">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:visibleOrGone="@{NetworkStatus.LOADING == status}" />
+
+        <Button
+            android:id="@+id/retryButton"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/retry"
+            app:visibleOrGone="@{NetworkStatus.ERROR == status}" />
+    </FrameLayout>
+</layout>

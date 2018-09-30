@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.veresz.movieapp.model.Movie" />
+
+    </data>
+
+    <ImageView
+        android:id="@+id/poster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/cd_poster"
+        android:foreground="?selectableItemBackground"
+        app:error="@{@drawable/movie_error}"
+        app:imageUrl="@{item.imageUrl(item.posterPath)}"
+        app:placeHolder="@{@drawable/movie_placeholder}"
+        tools:src="@tools:sample/backgrounds/scenic">
+
+    </ImageView>
+</layout>
