@@ -1,8 +1,11 @@
 package com.veresz.movieapp.model
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class MovieList(@Json(name = "page")
                      var page: Int? = null,
@@ -15,4 +18,4 @@ data class MovieList(@Json(name = "page")
                      @Json(name = "status_message")
                      var statusMessage: String? = "",
                      @Json(name = "status_code")
-                     var statusCode: Int? = null)
+                     var statusCode: Int? = null) : Parcelable
