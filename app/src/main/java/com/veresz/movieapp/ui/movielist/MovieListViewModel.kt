@@ -19,4 +19,8 @@ class MovieListViewModel : ViewModel() {
     fun refresh() {
         resource.refresh.invoke()
     }
+    fun setQueryFilter(queryFilter: String) {
+        repository.setQueryFilter(queryFilter)
+        refresh()
+    }
 }

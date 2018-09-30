@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieListDataSource(private val api: TmdbApi) : PageKeyedDataSource<Int, Movie>() {
+class MovieListDataSource(private val api: TmdbApi, private var queryFilter: String) : PageKeyedDataSource<Int, Movie>() {
 
     private var retry: (() -> Any)? = null
     val networkStatus = MutableLiveData<NetworkStatus>()
@@ -25,7 +25,7 @@ class MovieListDataSource(private val api: TmdbApi) : PageKeyedDataSource<Int, M
 
         networkStatus.postValue(LOADING)
         initialLoad.postValue(LOADING)
-        api.nowPlaying().enqueue(object : Callback<MovieList> {
+        val retrofitCallback = object : Callback<MovieList> {
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
                 val nowPlaying = response.body()
                 callback.onResult(nowPlaying!!.results,
@@ -44,7 +44,12 @@ class MovieListDataSource(private val api: TmdbApi) : PageKeyedDataSource<Int, M
                 networkStatus.postValue(ERROR)
                 initialLoad.postValue(ERROR)
             }
-        })
+        }
+        if (queryFilter.isBlank()) {
+            api.nowPlaying().enqueue(retrofitCallback)
+        } else {
+            api.searchMovie(queryFilter).enqueue(retrofitCallback)
+        }
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
@@ -52,7 +57,7 @@ class MovieListDataSource(private val api: TmdbApi) : PageKeyedDataSource<Int, M
         val page = params.key
 
         networkStatus.postValue(LOADING)
-        api.nowPlaying(page = page.toInt()).enqueue(object : Callback<MovieList> {
+        val retrofitCallback = object : Callback<MovieList> {
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
                 val nowPlaying = response.body()
 
@@ -67,7 +72,12 @@ class MovieListDataSource(private val api: TmdbApi) : PageKeyedDataSource<Int, M
                 }
                 networkStatus.postValue(ERROR)
             }
-        })
+        }
+        if (queryFilter.isBlank()) {
+            api.nowPlaying(page = page.toInt()).enqueue(retrofitCallback)
+        } else {
+            api.searchMovie(queryFilter).enqueue(retrofitCallback)
+        }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {

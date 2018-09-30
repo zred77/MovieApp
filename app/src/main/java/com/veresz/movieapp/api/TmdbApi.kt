@@ -1,7 +1,6 @@
 package com.veresz.movieapp.api
 
 import com.veresz.movieapp.BuildConfig
-import com.veresz.movieapp.model.Movie
 import com.veresz.movieapp.model.MovieList
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,7 +9,6 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TmdbApi {
@@ -19,13 +17,10 @@ interface TmdbApi {
     fun nowPlaying(@Query("language") language: String? = null,
                    @Query("page") page: Int = 1): Call<MovieList>
 
-    @GET("3/movie/{movieId}")
-    fun movieDetail(@Path("movieId") movieId: Int): Call<Movie>
-
     @GET("3/search/movie")
     fun searchMovie(@Query("query") query: String? = null,
                     @Query("language") language: String? = null,
-                    @Query("page") page: Int = 1): Call<Movie>
+                    @Query("page") page: Int = 1): Call<MovieList>
 
     companion object {
 
