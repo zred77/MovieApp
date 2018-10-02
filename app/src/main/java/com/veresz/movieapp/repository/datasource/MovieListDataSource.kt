@@ -1,5 +1,6 @@
 package com.veresz.movieapp.repository.datasource
 
+import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.veresz.movieapp.api.NetworkStatus
@@ -13,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieListDataSource(private val api: TmdbApi, private var queryFilter: String) : PageKeyedDataSource<Int, Movie>() {
+class MovieListDataSource(private val api: TmdbApi, private var queryFilter: String?) : PageKeyedDataSource<Int, Movie>() {
 
     private var retry: (() -> Any)? = null
     val networkStatus = MutableLiveData<NetworkStatus>()
@@ -45,7 +46,7 @@ class MovieListDataSource(private val api: TmdbApi, private var queryFilter: Str
                 initialLoad.postValue(ERROR)
             }
         }
-        if (queryFilter.isBlank()) {
+        if (TextUtils.isEmpty(queryFilter)) {
             api.nowPlaying().enqueue(retrofitCallback)
         } else {
             api.searchMovie(queryFilter).enqueue(retrofitCallback)
@@ -73,7 +74,7 @@ class MovieListDataSource(private val api: TmdbApi, private var queryFilter: Str
                 networkStatus.postValue(ERROR)
             }
         }
-        if (queryFilter.isBlank()) {
+        if (TextUtils.isEmpty(queryFilter)) {
             api.nowPlaying(page = page.toInt()).enqueue(retrofitCallback)
         } else {
             api.searchMovie(queryFilter).enqueue(retrofitCallback)

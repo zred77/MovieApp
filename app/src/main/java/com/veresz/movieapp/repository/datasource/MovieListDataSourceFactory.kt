@@ -12,7 +12,7 @@ class MovieListDataSourceFactory(
 
     val sourceLiveData = MutableLiveData<MovieListDataSource>()
     override fun create(): DataSource<Int, Movie> {
-        val source = MovieListDataSource(api, queryFilter.value!!)
+        val source = MovieListDataSource(api, queryFilter.value)
         sourceLiveData.postValue(source)
         return source
     }

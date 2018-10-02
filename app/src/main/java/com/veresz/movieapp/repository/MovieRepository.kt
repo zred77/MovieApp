@@ -1,5 +1,6 @@
 package com.veresz.movieapp.repository
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
@@ -11,13 +12,9 @@ import com.veresz.movieapp.repository.datasource.MovieListDataSourceFactory
 
 class MovieRepository : IMovieRepository {
 
-    private var queryFilter = MutableLiveData<String>().apply {
-        value = ""
-    }
+    private var queryFilter = MutableLiveData<String>()
+    private var api: TmdbApi = TmdbApi.create()
     private lateinit var sourceFactory: MovieListDataSourceFactory
-    private val api: TmdbApi by lazy {
-        TmdbApi.create()
-    }
 
     override fun movieList(query: String?, page: Int): LiveDataResource<PagedList<Movie>> {
         val config = PagedList.Config.Builder()
@@ -41,5 +38,10 @@ class MovieRepository : IMovieRepository {
 
     override fun setQueryFilter(queryFilter: String) {
         this.queryFilter.value = queryFilter
+    }
+
+    @VisibleForTesting
+    fun setFakeApi(api: TmdbApi) {
+        this.api = api
     }
 }
