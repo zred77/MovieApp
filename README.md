@@ -7,3 +7,11 @@ Movies can be tapped to view more details.
 Displays a collection of movies currently in theatres (/movie/now_playing endpoint)
 Has a deatils screen with a backdrop photo, title and a plot overview
 Has an autocompletion search for the movie list (/search/movie endpoint)
+
+Third party libraries only used for networking and image loading.
+
+- Databinding
+- ViewModel
+- LiveData
+- Retrofit
+- Glide
