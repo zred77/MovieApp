@@ -13,5 +13,6 @@ Third party libraries only used for networking and image loading.
 - Databinding
 - ViewModel
 - LiveData
+- Paging Library
 - Retrofit
 - Glide
