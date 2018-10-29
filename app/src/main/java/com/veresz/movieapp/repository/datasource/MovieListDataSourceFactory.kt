@@ -8,11 +8,12 @@ import com.veresz.movieapp.model.Movie
 
 class MovieListDataSourceFactory(
         private val api: TmdbApi,
-        private val queryFilter: LiveData<String>) : DataSource.Factory<Int, Movie>() {
+        private val queryFilter: LiveData<String>,
+        private val upcoming: MutableLiveData<Boolean>) : DataSource.Factory<Int, Movie>() {
 
     val sourceLiveData = MutableLiveData<MovieListDataSource>()
     override fun create(): DataSource<Int, Movie> {
-        val source = MovieListDataSource(api, queryFilter.value)
+        val source = MovieListDataSource(api, queryFilter.value, upcoming.value)
         sourceLiveData.postValue(source)
         return source
     }

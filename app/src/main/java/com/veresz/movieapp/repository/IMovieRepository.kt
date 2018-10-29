@@ -9,4 +9,6 @@ interface IMovieRepository {
     fun movieList(query: String? = null, page: Int = 1): LiveDataResource<PagedList<Movie>>
 
     fun setQueryFilter(queryFilter: String)
+
+    fun setUpcoming(upcoming: Boolean)
 }

@@ -71,6 +71,14 @@ class MovieListActivity : AppCompatActivity() {
         model.refresh()
     }
 
+    fun nowPlaying(view: View) {
+        model.upcoming(false)
+    }
+
+    fun upcoming(view: View) {
+        model.upcoming(true)
+    }
+
     private fun setupAdapter() {
         adapter = MovieListAdapter(
                 itemClickListener,

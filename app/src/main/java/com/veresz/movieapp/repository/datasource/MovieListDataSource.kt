@@ -14,7 +14,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieListDataSource(private val api: TmdbApi, private var queryFilter: String?) : PageKeyedDataSource<Int, Movie>() {
+class MovieListDataSource(private val api: TmdbApi,
+                          private var queryFilter: String?,
+                          private val upcoming: Boolean? = false) : PageKeyedDataSource<Int, Movie>() {
 
     private var retry: (() -> Any)? = null
     val networkStatus = MutableLiveData<NetworkStatus>()
@@ -30,10 +32,10 @@ class MovieListDataSource(private val api: TmdbApi, private var queryFilter: Str
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
                 val nowPlaying = response.body()
                 callback.onResult(nowPlaying!!.results,
-                        0,
-                        nowPlaying.results.size,
-                        null,
-                        page + 1)
+                                  0,
+                                  nowPlaying.results.size,
+                                  null,
+                                  page + 1)
                 networkStatus.postValue(SUCCESS)
                 initialLoad.postValue(SUCCESS)
             }
@@ -46,10 +48,10 @@ class MovieListDataSource(private val api: TmdbApi, private var queryFilter: Str
                 initialLoad.postValue(ERROR)
             }
         }
-        if (TextUtils.isEmpty(queryFilter)) {
-            api.nowPlaying().enqueue(retrofitCallback)
-        } else {
-            api.searchMovie(queryFilter).enqueue(retrofitCallback)
+        when {
+            upcoming != null && upcoming -> api.upcoming().enqueue(retrofitCallback)
+            TextUtils.isEmpty(queryFilter) -> api.nowPlaying().enqueue(retrofitCallback)
+            else -> api.searchMovie(queryFilter).enqueue(retrofitCallback)
         }
     }
 
@@ -63,7 +65,7 @@ class MovieListDataSource(private val api: TmdbApi, private var queryFilter: Str
                 val nowPlaying = response.body()
 
                 callback.onResult(nowPlaying!!.results,
-                        page + 1)
+                                  page + 1)
                 networkStatus.postValue(SUCCESS)
             }
 
@@ -74,10 +76,10 @@ class MovieListDataSource(private val api: TmdbApi, private var queryFilter: Str
                 networkStatus.postValue(ERROR)
             }
         }
-        if (TextUtils.isEmpty(queryFilter)) {
-            api.nowPlaying(page = page.toInt()).enqueue(retrofitCallback)
-        } else {
-            api.searchMovie(queryFilter).enqueue(retrofitCallback)
+        when {
+            upcoming != null && upcoming -> api.upcoming(page = page.toInt()).enqueue(retrofitCallback)
+            TextUtils.isEmpty(queryFilter) -> api.nowPlaying(page = page.toInt()).enqueue(retrofitCallback)
+            else -> api.searchMovie(queryFilter).enqueue(retrofitCallback)
         }
     }
 

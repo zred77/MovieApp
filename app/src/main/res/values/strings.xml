@@ -4,4 +4,6 @@
     <string name="title_activity_nowplaying">Movies</string>
     <string name="title_activity_moviedetail">Movie Details</string>
     <string name="action_search">Search</string>
+    <string name="now_playing">Now playing</string>
+    <string name="upcoming">Upcoming</string>
 </resources>

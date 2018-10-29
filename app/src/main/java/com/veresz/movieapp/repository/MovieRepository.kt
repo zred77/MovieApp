@@ -14,6 +14,7 @@ class MovieRepository : IMovieRepository {
 
     private var queryFilter = MutableLiveData<String>()
     private var api: TmdbApi = TmdbApi.create()
+    private var upcoming = MutableLiveData<Boolean>()
     private lateinit var sourceFactory: MovieListDataSourceFactory
 
     override fun movieList(query: String?, page: Int): LiveDataResource<PagedList<Movie>> {
@@ -22,7 +23,7 @@ class MovieRepository : IMovieRepository {
                 .setInitialLoadSizeHint(20)
                 .setEnablePlaceholders(true)
                 .build()
-        sourceFactory = MovieListDataSourceFactory(api, queryFilter)
+        sourceFactory = MovieListDataSourceFactory(api, queryFilter, upcoming)
         val livePagedList = LivePagedListBuilder(sourceFactory, config)
                 .build()
         return LiveDataResource(livePagedList,
@@ -38,6 +39,10 @@ class MovieRepository : IMovieRepository {
 
     override fun setQueryFilter(queryFilter: String) {
         this.queryFilter.value = queryFilter
+    }
+
+    override fun setUpcoming(upcoming: Boolean) {
+        this.upcoming.value = upcoming
     }
 
     @VisibleForTesting

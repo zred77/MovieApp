@@ -19,6 +19,12 @@ class MovieListViewModel : ViewModel() {
     fun refresh() {
         resource.refresh.invoke()
     }
+
+    fun upcoming(upcoming: Boolean) {
+        repository.setUpcoming(upcoming)
+        refresh()
+    }
+
     fun setQueryFilter(queryFilter: String) {
         repository.setQueryFilter(queryFilter)
         refresh()

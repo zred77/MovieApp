@@ -22,6 +22,10 @@ interface TmdbApi {
                     @Query("language") language: String? = null,
                     @Query("page") page: Int = 1): Call<MovieList>
 
+    @GET("3/movie/upcoming")
+    fun upcoming(@Query("language") language: String? = null,
+                 @Query("page") page: Int = 1): Call<MovieList>
+
     companion object {
 
         fun create(): TmdbApi {

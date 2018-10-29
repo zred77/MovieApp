@@ -44,7 +44,7 @@ class MovieListActivityTest {
                                 .setInitialLoadSizeHint(20)
                                 .setEnablePlaceholders(true)
                                 .build()
-                        val sourceFactory = MovieListDataSourceFactory(fakeApi, MutableLiveData())
+                        val sourceFactory = MovieListDataSourceFactory(fakeApi, MutableLiveData(), MutableLiveData())
                         val livePagedList = LivePagedListBuilder(sourceFactory, config)
                                 .build()
                         return LiveDataResource(livePagedList,
